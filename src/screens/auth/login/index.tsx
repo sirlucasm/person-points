@@ -8,6 +8,8 @@ import { PRIMARY, WHITE } from '../../../styles/colors';
 import { Text14 } from '../../../styles/text';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
+import { useAuthContext } from '../../../contexts/auth/context';
+import { useState } from 'react';
 
 interface LoginScreenProps {
   navigation: StackNavigationProp<any, 'Login'>;
@@ -15,8 +17,18 @@ interface LoginScreenProps {
 };
 
 const Login = ({ navigation, }: LoginScreenProps) => {
+  const { login } = useAuthContext();
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const validateValues = () => {
+    if (email.trim() && password.trim()) return true;
+    return false;
+  }
+
   const submit = () => {
-    console.log('login')
+    login({ email, password });
   }
 
   return (
@@ -57,6 +69,7 @@ const Login = ({ navigation, }: LoginScreenProps) => {
             containerStyle={{ marginVertical: 10, }}
             buttonStyle={{ backgroundColor: PRIMARY, borderRadius: 50 }}
             onPress={submit}
+            disabled={!validateValues()}
           />
           <Button
             title='Criar conta'

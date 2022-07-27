@@ -7,6 +7,8 @@ import { Button } from 'react-native-elements';
 import { PRIMARY, WHITE } from '../../../styles/colors';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
+import { useAuthContext } from '../../../contexts/auth/context';
+import { useState } from 'react';
 
 interface SignUpScreenProps {
   navigation: StackNavigationProp<any, 'SignUp'>;
@@ -14,8 +16,23 @@ interface SignUpScreenProps {
 };
 
 const SignUp = ({ navigation, }: SignUpScreenProps) => {
+  const { signUp } = useAuthContext();
+
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const validateValues = () => {
+    if (
+      name.trim() &&
+      email.trim() &&
+      password.trim()
+    ) return true;
+    return false;
+  }
+
   const submit = () => {
-    console.log('signup')
+    signUp({ name, email, password });
   }
 
   return (
@@ -33,6 +50,7 @@ const SignUp = ({ navigation, }: SignUpScreenProps) => {
             inputContainerStyle={{ borderBottomWidth: 0, }}
             leftIcon={<Ionicons name='person-outline' size={18} color='#3d3d3d' />}
             returnKeyType='next'
+            onChangeText={setName}
           />
         </FormAreaContent>
         <FormAreaContent>
@@ -41,6 +59,7 @@ const SignUp = ({ navigation, }: SignUpScreenProps) => {
             inputContainerStyle={{ borderBottomWidth: 0, }}
             leftIcon={<Ionicons name='mail-outline' size={18} color='#3d3d3d' />}
             returnKeyType='next'
+            onChangeText={setEmail}
           />
         </FormAreaContent>
         <FormAreaContent>
@@ -50,6 +69,7 @@ const SignUp = ({ navigation, }: SignUpScreenProps) => {
             leftIcon={<Ionicons name='lock-closed-outline' size={18} color='#3d3d3d' />}
             secureTextEntry
             returnKeyType='go'
+            onChangeText={setPassword}
             onSubmitEditing={submit}
           />
         </FormAreaContent>
@@ -59,6 +79,7 @@ const SignUp = ({ navigation, }: SignUpScreenProps) => {
             containerStyle={{ marginVertical: 10, }}
             buttonStyle={{ backgroundColor: PRIMARY, borderRadius: 50 }}
             onPress={submit}
+            disabled={!validateValues()}
           />
           <Button
             title='Voltar'

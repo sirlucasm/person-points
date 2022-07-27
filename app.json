@@ -1,15 +1,18 @@
 {
   "expo": {
-    "name": "person-points",
+    "name": "Person Points",
     "slug": "person-points",
     "version": "1.0.0",
+    "platforms": [
+      "android"
+    ],
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#2a5298"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -17,17 +20,15 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "ios": {
-      "supportsTablet": true
-    },
     "android": {
+      "package": "com.sirlucasm.personpoints",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#2a5298"
+      },
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-8220718551244921~4975315969"
       }
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
     }
   }
 }

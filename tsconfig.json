@@ -1,6 +1,48 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
-    "strict": true
-  }
+    "target": "es6",
+    "jsx": "react-jsx",
+    "strict": true,
+    "noImplicitAny": true,
+    "allowJs": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "declaration": true,
+    "downlevelIteration": true,
+    "noUnusedParameters": false,
+    "noUnusedLocals": false,
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "typescript-styled-plugin",
+        "lint": {
+          "unknownProperties": "ignore"
+        }
+      }
+    ]
+  },
+  "exclude": [
+    "node_modules",
+    ".next",
+    ".vscode",
+    "out"
+  ],
+  "include": [
+    "**/styles/**/*",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.yml",
+    "**/*.yaml",
+    "**/*.css",
+    "**/*.scss",
+    "**/*",
+    ".d.ts",
+    "next-env.d.ts",
+  ]
 }

@@ -9,14 +9,14 @@ import { Text14 } from '../../../styles/text';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 
-interface LoginScreenProps {
+interface SignUpScreenProps {
   navigation: StackNavigationProp<any, 'SignUp'>;
   routes: RouteProp<any, 'SignUp'>
 };
 
-const SignUp = ({ navigation, }: LoginScreenProps) => {
+const SignUp = ({ navigation, }: SignUpScreenProps) => {
   const submit = () => {
-    console.log('login')
+    console.log('signup')
   }
 
   return (

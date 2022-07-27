@@ -1,5 +1,7 @@
 import { useFonts } from 'expo-font';
 import AppLoading from './src/components/organisms/AppLoading';
+import { AppProvider } from './src/contexts/app/provider';
+import { AuthProvider } from './src/contexts/auth/provider';
 import Navigation from './src/navigations';
 
 export default function App() {
@@ -14,6 +16,10 @@ export default function App() {
   if (!fontsLoaded) return <AppLoading />;
 
   return (
-    <Navigation />
+    <AuthProvider>
+      <AppProvider>
+        <Navigation />
+      </AppProvider>
+    </AuthProvider>
   );
 }

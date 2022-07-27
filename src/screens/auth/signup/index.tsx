@@ -5,7 +5,6 @@ import AuthInput from '../../../components/atoms/Inputs/AuthInput';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { Button } from 'react-native-elements';
 import { PRIMARY, WHITE } from '../../../styles/colors';
-import { Text14 } from '../../../styles/text';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 

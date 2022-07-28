@@ -9,10 +9,10 @@ import {
   FIREBASE_MEASUREMENT_ID
 } from '@env';
 
-import { getApps, getApp, initializeApp } from 'firebase/app';
+import { getApps, initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import { getStorage } from 'firebase/storage';
 import { getFirestore } from 'firebase/firestore';
+import { getStorage } from 'firebase/storage';
 
 const config = {
   apiKey: FIREBASE_API_KEY,
@@ -24,12 +24,8 @@ const config = {
   measurementId: FIREBASE_MEASUREMENT_ID
 }
 
-let app;
+if (!getApps().length) initializeApp(config);
 
-if (getApps().length <= 0) app = initializeApp(config);
-else app = getApp();
-
-export default app;
 export const auth = getAuth();
+export const db = getFirestore();
 export const storage = getStorage();
-export const firestore = getFirestore();

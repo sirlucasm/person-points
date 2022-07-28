@@ -1,5 +1,13 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import {
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  updateProfile,
+  Auth,
+  getAuth,
+} from 'firebase/auth';
+import { Firestore, getFirestore } from 'firebase/firestore';
+import { FirebaseStorage, getStorage } from 'firebase/storage';
 import { CreateUserParams } from '../@types/user';
 import { auth } from '../configs/firebase';
 
@@ -8,7 +16,7 @@ export default {
     const newUser = await createUserWithEmailAndPassword(auth, email, password);
 
     if (newUser.user) {
-      AsyncStorage.setItem('auth_uid', newUser.user.uid);
+      AsyncStorage.setItem('auth_user_data', JSON.stringify({ email, password }));
       await updateProfile(newUser.user, {
         displayName: name,
         photoURL: `https://firebasestorage.googleapis.com/v0/b/person-points.appspot.com/o/
@@ -23,15 +31,18 @@ export default {
   login: async ({ email, password }: CreateUserParams) => {
     const user = await signInWithEmailAndPassword(auth, email, password);
 
-    if (user.user) AsyncStorage.setItem('auth_uid', user.user.uid);
+    if (user.user) AsyncStorage.setItem('auth_user_data', JSON.stringify({ email, password }));
 
     return user;
   },
 
   logout: async () => {
-    await auth.signOut();
-    await AsyncStorage.removeItem('auth_uid');
+    AsyncStorage.removeItem('auth_user_data')
+      .then(() => auth.signOut());
   },
 
   getCurrentUser: () => auth.currentUser,
 }
+
+
+

@@ -9,6 +9,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 import { useAuthContext } from '../../../contexts/auth/context';
 import { useState } from 'react';
+import AppLoading from '../../../components/organisms/AppLoading';
 
 interface SignUpScreenProps {
   navigation: StackNavigationProp<any, 'SignUp'>;
@@ -16,7 +17,7 @@ interface SignUpScreenProps {
 };
 
 const SignUp = ({ navigation, }: SignUpScreenProps) => {
-  const { signUp } = useAuthContext();
+  const { signUp, authenticating } = useAuthContext();
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -89,6 +90,7 @@ const SignUp = ({ navigation, }: SignUpScreenProps) => {
           />
         </FormAreaContent>
       </FormArea>
+      { authenticating && <AppLoading bgColor='rgba(0, 0, 0, .5)' /> }
     </LinearGradientLoginBackground>
   )
 }

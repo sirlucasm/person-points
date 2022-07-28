@@ -10,6 +10,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 import { useAuthContext } from '../../../contexts/auth/context';
 import { useState } from 'react';
+import AppLoading from '../../../components/organisms/AppLoading';
 
 interface LoginScreenProps {
   navigation: StackNavigationProp<any, 'Login'>;
@@ -17,7 +18,7 @@ interface LoginScreenProps {
 };
 
 const Login = ({ navigation, }: LoginScreenProps) => {
-  const { login } = useAuthContext();
+  const { login, authenticating } = useAuthContext();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -46,6 +47,7 @@ const Login = ({ navigation, }: LoginScreenProps) => {
             inputContainerStyle={{ borderBottomWidth: 0, }}
             leftIcon={<Ionicons name='mail-outline' size={18} color='#3d3d3d' />}
             returnKeyType='next'
+            onChangeText={setEmail}
           />
         </FormAreaContent>
         <FormAreaContent>
@@ -55,6 +57,7 @@ const Login = ({ navigation, }: LoginScreenProps) => {
             leftIcon={<Ionicons name='lock-closed-outline' size={18} color='#3d3d3d' />}
             secureTextEntry
             returnKeyType='go'
+            onChangeText={setPassword}
             onSubmitEditing={submit}
           />
         </FormAreaContent>
@@ -79,6 +82,7 @@ const Login = ({ navigation, }: LoginScreenProps) => {
           />
         </FormAreaContent>
       </FormArea>
+      { authenticating && <AppLoading bgColor='rgba(0, 0, 0, .5)' /> }
     </LinearGradientLoginBackground>
   )
 }

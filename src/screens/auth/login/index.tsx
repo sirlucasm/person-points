@@ -82,7 +82,7 @@ const Login = ({ navigation, }: LoginScreenProps) => {
           />
         </FormAreaContent>
       </FormArea>
-      { authenticating && <AppLoading bgColor='rgba(0, 0, 0, .5)' /> }
+      { authenticating && <AppLoading bgColor='rgba(0, 0, 0, .5)' title='Entrando' /> }
     </LinearGradientLoginBackground>
   )
 }

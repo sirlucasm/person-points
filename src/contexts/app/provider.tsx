@@ -28,7 +28,7 @@ export const AppProvider = ({ children }: any) => {
 
     const fetchPersonSelected = async () => {
       const stored = await AsyncStorage.getItem('person_selected');
-      console.log(stored)
+
       if (stored) setPersonSelected(JSON.parse(stored));
       else setShowPersonSelectModal(true);
     }

@@ -15,6 +15,7 @@
     "@react-navigation/bottom-tabs": "^6.3.2",
     "@react-navigation/native": "^6.0.11",
     "@react-navigation/stack": "^6.2.2",
+    "base-64": "^1.0.0",
     "expo": "~45.0.0",
     "expo-ads-admob": "~13.0.0",
     "expo-font": "~10.1.0",
@@ -35,6 +36,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
+    "@types/base-64": "^1.0.0",
     "@types/react": "^18.0.15",
     "@types/react-native": "^0.69.3",
     "@types/styled-components-react-native": "^5.1.3",

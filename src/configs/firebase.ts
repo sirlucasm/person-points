@@ -9,9 +9,9 @@ import {
   FIREBASE_MEASUREMENT_ID
 } from '@env';
 
-import { getApps, initializeApp } from 'firebase/app';
+import { getApp, getApps, initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
+import { initializeFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 
 const config = {
@@ -24,8 +24,13 @@ const config = {
   measurementId: FIREBASE_MEASUREMENT_ID
 }
 
-if (!getApps().length) initializeApp(config);
+let app;
+if (!getApps().length) app = initializeApp(config);
+else app = getApp();
+
+export const db = initializeFirestore(app, { experimentalForceLongPolling: true });
+
+// setLogLevel('debug');
 
 export const auth = getAuth();
-export const db = getFirestore();
 export const storage = getStorage();

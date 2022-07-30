@@ -3,11 +3,8 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   updateProfile,
-  Auth,
-  getAuth,
 } from 'firebase/auth';
-import { Firestore, getFirestore } from 'firebase/firestore';
-import { FirebaseStorage, getStorage } from 'firebase/storage';
+import { BackHandler } from 'react-native';
 import { CreateUserParams } from '../@types/user';
 import { auth } from '../configs/firebase';
 
@@ -19,9 +16,7 @@ export default {
       AsyncStorage.setItem('auth_user_data', JSON.stringify({ email, password }));
       await updateProfile(newUser.user, {
         displayName: name,
-        photoURL: `https://firebasestorage.googleapis.com/v0/b/person-points.appspot.com/o/
-          images%2Fprofile_pictures%2Fdefault-profile-pic.png
-          ?alt=media&token=172cc0a5-efe1-4243-b257-939aea38ab63`,
+        photoURL: 'https://firebasestorage.googleapis.com/v0/b/person-points.appspot.com/o/images%2Fprofile_pictures%2Fdefault-profile-pic.png?alt=media&token=172cc0a5-efe1-4243-b257-939aea38ab63',
       });
     }
 
@@ -37,8 +32,11 @@ export default {
   },
 
   logout: async () => {
-    AsyncStorage.removeItem('auth_user_data')
-      .then(() => auth.signOut());
+    AsyncStorage.multiRemove(['auth_user_data', 'person_selected'])
+      .then(() => {
+        auth.signOut();
+        BackHandler.exitApp();
+      });
   },
 
   getCurrentUser: () => auth.currentUser,

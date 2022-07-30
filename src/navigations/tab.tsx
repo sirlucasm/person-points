@@ -1,4 +1,5 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import BottomTabContent from '../components/organisms/BottomTabContent';
 
 import { ProfileStackScreen, TaskStackScreen } from './stack';
 
@@ -7,8 +8,9 @@ const Tab = createBottomTabNavigator();
 export const AppTab = () => {
   return (
     <Tab.Navigator
-      screenOptions={{ headerShown: false }}
+      screenOptions={{ headerShown: false, tabBarShowLabel: false }}
       initialRouteName='TasksTab'
+      tabBar={props => <BottomTabContent {...props} />}
     >
       <Tab.Screen name="TasksTab" component={TaskStackScreen} />
       <Tab.Screen name="ProfileTab" component={ProfileStackScreen} />

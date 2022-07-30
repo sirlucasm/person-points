@@ -6,7 +6,6 @@ import PersonService from "../../services/PersonService";
 import { useAuthContext } from "../auth/context";
 import { DocumentData } from "firebase/firestore";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import PersonSelectModal from "../../components/organisms/PersonSelectModal";
 
 export const AppProvider = ({ children }: any) => {
   const { currentUser } = useAuthContext();

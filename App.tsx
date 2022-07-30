@@ -5,10 +5,15 @@ import { AppProvider } from './src/contexts/app/provider';
 import { AuthProvider } from './src/contexts/auth/provider';
 import Navigation from './src/navigations';
 import {decode, encode} from 'base-64';
+import { LogBox } from 'react-native';
 
 if (!global.btoa) {  global.btoa = encode }
 
 if (!global.atob) { global.atob = decode }
+
+LogBox.ignoreLogs([
+  'AsyncStorage'
+]);
 
 export default function App() {
   let [ fontsLoaded ] = useFonts({

@@ -35,7 +35,7 @@ export default {
     return onSnapshot(q, (data) => {
       const persons: any[] = [];
 
-      if (!data.empty) data.forEach(cartoon => persons.push(cartoon.data()));
+      if (!data.empty) data.forEach(person => persons.push(person.data()));
 
       setPersons(persons);
     });

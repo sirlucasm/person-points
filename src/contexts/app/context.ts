@@ -4,7 +4,7 @@ import { IPerson } from '../../@types/person';
 import { DocumentData } from 'firebase/firestore';
 
 export interface AppContextProps {
-  tasks: [];
+  tasks: any[];
   persons: any[];
   personSelected: IPerson | null;
   setPersonSelected: React.Dispatch<React.SetStateAction<any>>;

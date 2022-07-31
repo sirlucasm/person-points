@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { View, Button, TouchableOpacity } from 'react-native';
 import CreatePersonModal from '../../../components/organisms/CreatePersonModal';
 import Header from '../../../components/organisms/Header';
+import ListTasks from '../../../components/organisms/ListTasks';
 import PersonSelectModal from '../../../components/organisms/PersonSelectModal';
 import { useAppContext } from '../../../contexts/app/context';
 import { useAuthContext } from '../../../contexts/auth/context';
@@ -13,7 +14,12 @@ import { AddTaskButton, ButtonArea, Content, ContentWithoutPerson, Divider, Titl
 
 const Tasks = ({ navigation }: any) => {
   const [showModal, setShowModal] = useState(false);
-  const { persons, personSelected, showPersonSelectModal, setShowPersonSelectModal } = useAppContext();
+  const {
+    persons,
+    personSelected,
+    showPersonSelectModal,
+    setShowPersonSelectModal,
+  } = useAppContext();
 
   const toggleModal = () => {
     setShowModal(!showModal);
@@ -73,6 +79,7 @@ const Tasks = ({ navigation }: any) => {
                   style={{ marginTop: 12 }}
                 >Adicionar tarefa</StyledText>
               </ButtonArea>
+              <ListTasks />
             </Content>
           </>
       }

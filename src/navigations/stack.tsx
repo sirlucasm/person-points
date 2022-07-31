@@ -1,7 +1,6 @@
 import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
 
 import Profile from '../screens/app/profile';
-import Tasks from '../screens/app/tasks';
 import AddTask from '../screens/app/tasks/addTask';
 import Login from '../screens/auth/login';
 import SignUp from '../screens/auth/signup';

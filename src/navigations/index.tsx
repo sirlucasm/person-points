@@ -1,14 +1,13 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { useAuthContext } from "../contexts/auth/context";
-import { AuthStackScreen } from "./stack";
-import { AppTab } from "./tab";
+import { AuthStackScreen, RootStackScreen } from "./stack";
 
 const Navigation = () => {
   const { signed } = useAuthContext();
   return (
     <NavigationContainer>
       {
-        signed ? <AppTab /> : <AuthStackScreen />
+        signed ? <RootStackScreen /> : <AuthStackScreen />
       }
     </NavigationContainer>
   )

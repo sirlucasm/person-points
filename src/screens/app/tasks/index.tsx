@@ -64,7 +64,7 @@ const Tasks = ({ navigation }: any) => {
                 </View>
               </TitleArea>
               <ButtonArea>
-                <AddTaskButton>
+                <AddTaskButton onPress={() => navigation.navigate('TaskStack', { name: 'AddTask' })} >
                   <Ionicons name='add-outline' size={32} color={GRAY_DARK} />
                 </AddTaskButton>
                 <StyledText

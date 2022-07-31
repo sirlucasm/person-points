@@ -1,12 +1,13 @@
 import { Ionicons } from '@expo/vector-icons';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import styled from 'styled-components/native';
-import { GRAY_DARK, PRIMARY } from '../../styles/colors';
+import { GRAY_DARK, PRIMARY, WHITE } from '../../styles/colors';
 import HomeIcon from '../../assets/icons/home.svg';
 import UserIcon from '../../assets/icons/user.svg';
 
 const Content = styled.View`
   flex-direction: row;
+  background-color: ${WHITE};
 `;
 
 const TabBarButton = styled.TouchableOpacity<any>`
@@ -46,12 +47,12 @@ const BottomTabContent = ({ state, descriptors, navigation }: BottomTabBarProps)
           const isFocused = state.index === index;
 
           const RouteNames: any = {
-            TasksTab: <HomeIcon
+            Tasks: <HomeIcon
               fill={isFocused ? PRIMARY : GRAY_DARK}
               width={26}
               height={26}
             />,
-            ProfileTab: <UserIcon
+            Profile: <UserIcon
               fill={isFocused ? PRIMARY : GRAY_DARK}
               width={24}
               height={24}

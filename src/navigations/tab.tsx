@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import BottomTabContent from '../components/organisms/BottomTabContent';
-
-import { ProfileStackScreen, TaskStackScreen } from './stack';
+import Profile from '../screens/app/profile';
+import Tasks from '../screens/app/tasks';
 
 const Tab = createBottomTabNavigator();
 
@@ -12,8 +12,8 @@ export const AppTab = () => {
       initialRouteName='TasksTab'
       tabBar={props => <BottomTabContent {...props} />}
     >
-      <Tab.Screen name="TasksTab" component={TaskStackScreen} />
-      <Tab.Screen name="ProfileTab" component={ProfileStackScreen} />
+      <Tab.Screen name="Tasks" component={Tasks} />
+      <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>
   );
 }

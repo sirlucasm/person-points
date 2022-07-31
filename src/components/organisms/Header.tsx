@@ -2,7 +2,7 @@ import styled from "styled-components/native";
 import { Avatar } from 'react-native-elements';
 import { View } from 'react-native';
 import { useAuthContext } from '../../contexts/auth/context';
-import { Text20 } from "../../styles/text";
+import { StyledText, Text20 } from "../../styles/text";
 import { useAppContext } from "../../contexts/app/context";
 
 const Content = styled.View`
@@ -26,6 +26,9 @@ const Header = () => {
         onPress={() => setShowPersonSelectModal(true)}
       />
       <View/>
+      <View>
+        <StyledText>{personSelected?.name}</StyledText>
+      </View>
     </Content>
   )
 }

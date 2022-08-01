@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import { View, Text, Dimensions } from 'react-native';
 import normalize from 'react-native-normalize';
 import styled from 'styled-components/native';
@@ -28,8 +29,20 @@ export const Divider = styled.View`
 `;
 
 const TaskItem = ({ item, index, totalTasks }: any) => {
+  const navigation: any = useNavigation();
+
+  const handleOpenTask = (item: any) => {
+    navigation.navigate('ShowTask', { task: item });
+  }
+
   return (
-    <Item activeOpacity={0.88} index={index} color={item.color} totalTasks={totalTasks}>
+    <Item
+      activeOpacity={0.88}
+      index={index}
+      color={item.color}
+      totalTasks={totalTasks}
+      onPress={() => handleOpenTask(item)}
+    >
       <TitleArea>
         <StyledText
           color={WHITE}

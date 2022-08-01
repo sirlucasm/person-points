@@ -2,13 +2,12 @@ import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/
 
 import Profile from '../screens/app/profile';
 import AddTask from '../screens/app/tasks/addTask';
+import ShowTask from '../screens/app/tasks/showTask';
 import Login from '../screens/auth/login';
 import SignUp from '../screens/auth/signup';
 import { AppTab } from './tab';
 
 const RootStack = createStackNavigator();
-const ProfileStack = createStackNavigator();
-const TaskStack = createStackNavigator();
 const AuthStack = createStackNavigator();
 
 export const RootStackScreen = () => {
@@ -17,35 +16,30 @@ export const RootStackScreen = () => {
       screenOptions={{ headerShown: false }}
       initialRouteName='TabStack'
     >
+      {/* ROOT TAB */}
       <RootStack.Screen name="TabStack" component={AppTab} />
-      <RootStack.Screen name="TaskStack" component={TaskStackScreen} />
-      <RootStack.Screen name="ProfileStack" component={ProfileStackScreen} />
-    </RootStack.Navigator>
-  )
-}
 
-const TaskStackScreen = () => {
-  return (
-    <TaskStack.Navigator
-      screenOptions={{ headerShown: false }}
-    >
-      <TaskStack.Screen
+      {/* TASK */}
+      <RootStack.Screen
         name="AddTask"
         component={AddTask}
         options={{
           presentation: 'modal',
         }}
       />
-    </TaskStack.Navigator>
-  )
-}
-const ProfileStackScreen = () => {
-  return (
-    <ProfileStack.Navigator
-      screenOptions={{ headerShown: false }}
-    >
-      <ProfileStack.Screen name="Profile" component={Profile} />
-    </ProfileStack.Navigator>
+      <RootStack.Screen
+        name="ShowTask"
+        component={ShowTask}
+        options={{
+          gestureEnabled: true,
+          gestureDirection: 'horizontal',
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        }}
+      />
+
+      {/* PROFILE */}
+      <RootStack.Screen name="Profile" component={Profile} />
+    </RootStack.Navigator>
   )
 }
 

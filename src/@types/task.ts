@@ -4,6 +4,11 @@ export interface CreateTaskParams {
   color: string;
 }
 
+export interface CreateSubTaskParams {
+  name: string;
+  deadLine: string;
+}
+
 export interface ITask {
   id: string;
   name: string;
@@ -11,4 +16,17 @@ export interface ITask {
   color: string;
   createdAt: string;
   updatedAt: string;
+  done: boolean;
+  subTasks: any[];
+  userId: string;
+}
+
+export interface ISubTask {
+  id: string;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+  deadLine: Date;
+  done: boolean;
+  points: number;
 }

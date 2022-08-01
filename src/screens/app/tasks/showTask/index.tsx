@@ -97,6 +97,7 @@ const ShowTask = ({ route }: ShowTaskProps) => {
       <Modalize
         ref={modalizeRef}
         modalHeight={380}
+        keyboardAvoidingBehavior="height"
       >
         <CreateSubTask
           taskId={task?.id || ''}

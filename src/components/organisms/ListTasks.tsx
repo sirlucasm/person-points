@@ -19,7 +19,7 @@ const ListTasks = () => {
       }
       horizontal
       showsHorizontalScrollIndicator={false}
-      snapToOffsets={[...Array(tasks.length).map((_, i) => i * (width * 0.555 - 20) + (i-1)  * 20)]}
+      snapToOffsets={[...Array(tasks.length).map((_, i) => i * (width * 0.535 - 20) + (i-1)  * 20)]}
       snapToAlignment='start'
       scrollEventThrottle={16}
       decelerationRate='fast'

@@ -1,15 +1,15 @@
 import { View, Text, Dimensions } from 'react-native';
 import normalize from 'react-native-normalize';
 import styled from 'styled-components/native';
-import { PRIMARY, WHITE } from '../../styles/colors';
+import { WHITE } from '../../styles/colors';
 import { StyledText } from '../../styles/text';
 
 const { width } = Dimensions.get('window');
 
 const Item = styled.TouchableOpacity<any>`
-  width: ${width * 0.555}px;
+  width: ${width * 0.535}px;
   height: ${normalize(242, 'height')}px;
-  background-color: ${props => props.index % 2 == 0 ? PRIMARY : '#e13535'};
+  background-color: ${props => props.color};
   border-radius: 6px;
   margin-horizontal: 10px;
   ${props => props.index == 0 && 'margin-left: 40px;'}
@@ -29,7 +29,7 @@ export const Divider = styled.View`
 
 const TaskItem = ({ item, index, totalTasks }: any) => {
   return (
-    <Item activeOpacity={0.88} index={index} totalTasks={totalTasks}>
+    <Item activeOpacity={0.88} index={index} color={item.color} totalTasks={totalTasks}>
       <TitleArea>
         <StyledText
           color={WHITE}

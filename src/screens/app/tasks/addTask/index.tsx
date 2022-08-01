@@ -2,22 +2,24 @@ import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import { Button } from 'react-native-elements';
+import { ScrollView } from 'react-native-gesture-handler';
 import DefaultInput from '../../../../components/atoms/Inputs/DefaultInput';
 import { useAuthContext } from '../../../../contexts/auth/context';
 import TaskService from '../../../../services/TaskService';
-import { GRAY_DARK, PRIMARY } from '../../../../styles/colors';
+import { GRAY_DARK, PRIMARY, TaskColors, WHITE } from '../../../../styles/colors';
 import { Container } from '../../../../styles/container';
 import { StyledText } from '../../../../styles/text';
-import { FormArea, TitleArea } from './styles';
+import { ColorPicker, FormArea, TitleArea } from './styles';
 
 const AddTask = ({ navigation }: any) => {
   const { currentUser } = useAuthContext();
 
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
+  const [color, setColor] = useState(PRIMARY);
 
   const handleCreateTask = () => {
-    TaskService.create({ name, description }, currentUser?.uid || '')
+    TaskService.create({ name, description, color }, currentUser?.uid || '')
       .then(() => navigation.goBack());
   }
 
@@ -50,6 +52,25 @@ const AddTask = ({ navigation }: any) => {
           numberOfLines = {10}
           textArea
         />
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          style={{ marginTop: 14 }}
+        >
+          {
+            TaskColors.map((c, index) => (
+              <ColorPicker
+                key={index}
+                color={c}
+                activeOpacity={0.9}
+                onPress={() => setColor(c)}
+                isFocused={color === c}
+              >
+                { color === c && <Ionicons name='checkmark-sharp' size={18} color={WHITE} /> }
+              </ColorPicker>
+            ))
+          }
+        </ScrollView>
         <Button
           icon={{ name: 'check', color: '#fff' }}
           containerStyle={{ marginTop: 20, }}

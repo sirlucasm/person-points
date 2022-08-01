@@ -1,6 +1,5 @@
 import { Dimensions } from "react-native";
 import styled from "styled-components/native";
-import { GRAY_LIGHT, GRAY_MEDIUM } from "../../../../styles/colors";
 
 const { width } = Dimensions.get('window');
 
@@ -16,4 +15,18 @@ export const FormArea = styled.KeyboardAvoidingView`
   margin-top: 40px;
   margin-left: 28px;
   width: ${width * 0.7}px;
+`;
+
+export const ColorPicker = styled.TouchableOpacity<any>`
+  background-color: ${props => props.color};
+  height: 28px;
+  width: 46px;
+  border-radius: 12px;
+  margin-right: 4px;
+  align-items: center;
+  justify-content: center;
+  ${props => props.isFocused && `
+    border-width: 2px;
+    border-color: #c9c9c9;
+  `}
 `;

@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Dimensions } from 'react-native';
 import { Button } from 'react-native-elements';
 import styled from 'styled-components/native';
@@ -54,10 +54,6 @@ const CreateSubTask = ({ subTasks, taskId, closeModalize }: {
     }, taskId)
       .then(() => closeModalize());
   }
-
-  useEffect(() => {
-    console.log(showDatePicker);
-  }, [showDatePicker]);
 
   return (
     <Content>

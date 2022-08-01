@@ -17,7 +17,6 @@ export interface ITask {
   createdAt: string;
   updatedAt: string;
   done: boolean;
-  subTasks: any[];
   userId: string;
 }
 

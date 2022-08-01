@@ -36,10 +36,21 @@ const ShowTask = ({ route }: ShowTaskProps) => {
     modalizeRef.current?.close();
   };
 
-  useEffect(() => {
-    const unsubTask = TaskService.showTask(setTask, setSubTasks, taskClicked.id);
+  const handleFinishSubTask = async (subTaskId: string, doneStatus: boolean) => {
+    await TaskService.finishSubTask({
+      done: !doneStatus,
+      subTaskId,
+    }, task?.id || '');
+  }
 
-    return unsubTask;
+  useEffect(() => {
+    const unsubTask = TaskService.showTask(setTask, taskClicked.id);
+    const unsubSubTasks = TaskService.listSubTasks(setSubTasks, taskClicked.id);
+
+    return () => {
+      unsubTask();
+      unsubSubTasks();
+    };
   }, []);
 
   return (
@@ -52,9 +63,19 @@ const ShowTask = ({ route }: ShowTaskProps) => {
         >
           {task?.name}
         </StyledText>
+        {
+          !!task?.description &&
+            <StyledText
+              size={16}
+              color={GRAY_MEDIUM}
+            >
+              {task.description}
+            </StyledText>
+        }
         <StyledText
           size={17}
           color={GRAY_MEDIUM}
+          style={{ marginTop: 10 }}
         >
           {taskDoneTitleFormating(subTasks, subTasks.length)}
         </StyledText>
@@ -63,22 +84,25 @@ const ShowTask = ({ route }: ShowTaskProps) => {
 
       <ScrollView style={{ paddingLeft: 30, }}>
         {
-          subTasks?.map((task: ISubTask, index: number) => (
+          subTasks?.map((subTask: ISubTask, index: number) => (
             <SubTasksList key={index}>
               <CheckBox
+                checked={subTask.done}
+                checkedColor={task?.color}
+                onPress={() => handleFinishSubTask(subTask.id, subTask.done)}
               />
               <View>
                 <StyledText
                   size={21}
                   color={GRAY_DARK}
                 >
-                  {task.name}
+                  {subTask.name}
                 </StyledText>
                 <StyledText
                   size={14}
                   color={GRAY_MEDIUM}
                 >
-                  {formatDateString(task.deadLine)}
+                  {formatDateString(subTask.deadLine)}
                 </StyledText>
               </View>
             </SubTasksList>

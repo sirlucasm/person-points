@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { doc, setDoc, collection, getDocs, query, where, orderBy, getDoc, onSnapshot, updateDoc } from "firebase/firestore";
-import { CreateSubTaskParams, CreateTaskParams, ITask } from "../@types/task";
+import { doc, setDoc, collection, query, where, orderBy, getDoc, onSnapshot, updateDoc } from "firebase/firestore";
+import { CreateTaskParams, } from "../@types/task";
 import { db } from "../configs/firebase";
 import { timeNow } from "../utils/app";
 
@@ -15,7 +15,6 @@ export default {
       done: false,
       createdAt: timeNow,
       updatedAt: timeNow,
-      subTasks: [],
       userId: uid,
     });
 
@@ -39,30 +38,47 @@ export default {
   },
 
   createSubTask: async (params: any, docId: string) => {
-    const docRef = doc(db, 'tasks', docId);
-    await updateDoc(docRef, {
-      subTasks: [
-        ...params.subTasks,
-        params.newSubTask
-      ],
-      updatedAt: timeNow
-    });
+    const docRef = doc(collection(db, 'tasks', docId, 'subTasks'));
 
-    const task = (await getDoc(doc(db, 'tasks', docRef.id))).data();
+    params.newSubTask.id = docRef.id;
+    params.newSubTask.createdAt = timeNow;
+    params.newSubTask.updatedAt = timeNow;
+    params.newSubTask.done = false;
 
-    return task;
+    await setDoc(docRef, params.newSubTask);
   },
 
   showTask: (
     setTask: React.Dispatch<React.SetStateAction<any>>,
-    setSubTasks: React.Dispatch<React.SetStateAction<any[]>>,
     docId: string
   ) => {
     const docRef = doc(db, 'tasks', docId);
     return onSnapshot(docRef, (result) => {
       const task = result.data();
       setTask(task);
-      setSubTasks(task?.subTasks);
+    });
+  },
+
+  listSubTasks: (
+    setSubTasks: React.Dispatch<React.SetStateAction<any[]>>,
+    docId: string
+  ) => {
+    const docRef = query(collection(db, 'tasks', docId, 'subTasks'), orderBy('createdAt', 'desc'));
+
+    return onSnapshot(docRef, (result) => {
+      const subTasks: any[] = [];
+      if (!result.empty) result.forEach(subTask => subTasks.push(subTask.data()));
+
+      setSubTasks(subTasks);
+    });
+  },
+
+  finishSubTask: async (params: any, taskId: string) => {
+    const docRef = doc(db, 'tasks', taskId, 'subTasks', params.subTaskId);
+
+    await updateDoc(docRef, {
+      done: params.done,
+      updatedAt: timeNow
     });
   },
 };

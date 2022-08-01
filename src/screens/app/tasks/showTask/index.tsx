@@ -96,7 +96,7 @@ const ShowTask = ({ route }: ShowTaskProps) => {
 
       <Modalize
         ref={modalizeRef}
-        modalHeight={500}
+        modalHeight={380}
       >
         <CreateSubTask
           taskId={task?.id || ''}

@@ -22,10 +22,6 @@ export const AppProvider = ({ children }: any) => {
   }
 
   useEffect(() => {
-    const fetchTasks = () => {
-
-    }
-
     const fetchPersonSelected = async () => {
       const stored = await AsyncStorage.getItem('person_selected');
 
@@ -33,7 +29,6 @@ export const AppProvider = ({ children }: any) => {
       else setShowPersonSelectModal(true);
     }
 
-    fetchTasks();
     fetchPersonSelected();
 
     return () => {

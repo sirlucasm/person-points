@@ -55,7 +55,7 @@ const TaskItem = ({ item, index, totalTasks }: any) => {
   useEffect(() => {
     const unsub = TaskService.listSubTasks(setSubTasks, item.id);
     return unsub;
-  });
+  }, []);
 
   return (
     <Item

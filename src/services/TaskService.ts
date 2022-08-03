@@ -1,5 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { doc, setDoc, collection, query, where, orderBy, getDoc, onSnapshot, updateDoc } from "firebase/firestore";
+import { doc, setDoc, collection, query, where, orderBy, getDoc, onSnapshot, updateDoc, deleteDoc } from "firebase/firestore";
 import { CreateTaskParams, } from "../@types/task";
 import { db } from "../configs/firebase";
 import { timeNow } from "../utils/app";
@@ -80,5 +80,11 @@ export default {
       done: params.done,
       updatedAt: timeNow
     });
+  },
+
+  deleteTask: async (taskId: string) => {
+    const docRef = doc(db, 'tasks', taskId);
+
+    await deleteDoc(docRef);
   },
 };

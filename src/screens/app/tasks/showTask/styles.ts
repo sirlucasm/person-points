@@ -1,12 +1,17 @@
 import { Dimensions } from "react-native";
 import styled from "styled-components/native";
-import { GRAY_LIGHT, PRIMARY } from "../../../../styles/colors";
+import { ALERT, GRAY_LIGHT, PRIMARY } from "../../../../styles/colors";
 
 const { width } = Dimensions.get('window');
 
 export const TitleArea = styled.View`
-  margin-left: 90px;
+  margin-left: 60px;
   margin-top: 80px;
+`;
+export const TitleTaskRow = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 export const Divider = styled.View`
@@ -36,4 +41,13 @@ export const CreateSubTaskBtn = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
   border-radius: 6px;
+`;
+
+export const DeleteTaskButton = styled.TouchableOpacity`
+  margin-right: 40px;
+`;
+
+export const TitleAndProgress = styled.View`
+  flex-direction: row;
+  align-items: center;
 `;

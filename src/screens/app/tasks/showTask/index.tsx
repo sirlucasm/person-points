@@ -3,11 +3,11 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { View, Text, ScrollView, Alert } from 'react-native';
 import { ISubTask, ITask } from '../../../../@types/task';
-import { ALERT, GRAY_DARK, GRAY_LIGHT, GRAY_MEDIUM, WHITE } from '../../../../styles/colors';
+import { ALERT, GRAY_DARK, GRAY_LIGHT, GRAY_MEDIUM, PRIMARY, WHITE } from '../../../../styles/colors';
 import { Container } from '../../../../styles/container';
 import { StyledText } from '../../../../styles/text';
 import { taskDoneTitleFormating, taskFinishedPercent } from '../../../../utils/task';
-import { ButtonContent, CreateSubTaskBtn, DeleteTaskButton, Divider, SubTasksList, TitleAndProgress, TitleArea, TitleTaskRow } from './styles';
+import { ButtonContent, CreateSubTaskBtn, DeleteSubTaskButton, DeleteTaskButton, Divider, SubTasksList, TitleAndProgress, TitleArea, TitleTaskRow } from './styles';
 import { Modalize } from 'react-native-modalize';
 import { useEffect, useRef, useState } from 'react';
 import CreateSubTask from '../../../../components/organisms/CreateSubTask';
@@ -47,6 +47,10 @@ const ShowTask = ({ route, navigation }: ShowTaskProps) => {
   const deleteTask = async () => {
     await TaskService.deleteTask(task?.id || '');
     navigation.goBack();
+  }
+
+  const deleteSubTask = async (subTask: string) => {
+    await TaskService.deleteSubTask(subTask, task?.id || '');
   }
 
   const handleDeleteTask = async () => {
@@ -92,7 +96,7 @@ const ShowTask = ({ route, navigation }: ShowTaskProps) => {
             onPress={() => handleDeleteTask()}
             activeOpacity={0.8}
           >
-            <Ionicons name='trash' size={20} color={ALERT} />
+            <Ionicons name='trash' size={18} color={WHITE} />
           </DeleteTaskButton>
         </TitleTaskRow>
         {
@@ -117,7 +121,7 @@ const ShowTask = ({ route, navigation }: ShowTaskProps) => {
       <ScrollView style={{ paddingLeft: 30, }}>
         {
           subTasks?.map((subTask: ISubTask, index: number) => (
-            <SubTasksList key={index}>
+            <SubTasksList key={subTask.id}>
               <CheckBox
                 checked={subTask.done}
                 checkedColor={task?.color}
@@ -130,12 +134,25 @@ const ShowTask = ({ route, navigation }: ShowTaskProps) => {
                 >
                   {subTask.name}
                 </StyledText>
-                <StyledText
-                  size={14}
-                  color={GRAY_MEDIUM}
-                >
-                  {formatDateString(subTask.deadLine)}
-                </StyledText>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                  <StyledText
+                    size={14}
+                    color={GRAY_MEDIUM}
+                  >
+                    {formatDateString(subTask.deadLine)}
+                  </StyledText>
+                  <DeleteSubTaskButton
+                    onPress={() => deleteSubTask(subTask.id)}
+                    activeOpacity={0.8}
+                  >
+                    <StyledText
+                      size={14}
+                      color={ALERT}
+                    >
+                      Excluir
+                    </StyledText>
+                  </DeleteSubTaskButton>
+                </View>
               </View>
             </SubTasksList>
           ))

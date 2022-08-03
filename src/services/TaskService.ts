@@ -87,4 +87,10 @@ export default {
 
     await deleteDoc(docRef);
   },
+
+  deleteSubTask: async (subTaskId: string, taskId: string) => {
+    const docRef = doc(db, 'tasks', taskId, 'subTasks', subTaskId);
+
+    await deleteDoc(docRef);
+  },
 };

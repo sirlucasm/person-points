@@ -45,6 +45,14 @@ export const CreateSubTaskBtn = styled.TouchableOpacity`
 
 export const DeleteTaskButton = styled.TouchableOpacity`
   margin-right: 40px;
+  align-items: center;
+  justify-content: center;
+  background-color: ${ALERT};
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+`;
+export const DeleteSubTaskButton = styled.TouchableOpacity`
 `;
 
 export const TitleAndProgress = styled.View`

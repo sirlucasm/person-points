@@ -7,5 +7,8 @@ export const taskDoneTitleFormating = (
   return `${tasksDone.length} de ${subTaskslength} tarefas`;
 }
 
-export const taskFinishedPercent = (finished: number, total: number) =>
-  Math.floor(finished/total * 100);
+export const taskFinishedPercent = (subTasks: any[], total: number) => {
+  const finished = subTasks.filter(s => s.done).length;
+
+  return Math.floor(finished/total * 100);
+}

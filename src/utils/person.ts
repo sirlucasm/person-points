@@ -14,3 +14,6 @@ export const generatePoints = (personCurrentPoints: number) => {
   else if (personCurrentPoints < 4000) return Math.round(4000/170);
   return Math.round(personCurrentPoints/200);
 }
+
+export const personNextTierProgress = (points: number = 0, nextPoints: number = 30) =>
+  Math.floor((nextPoints - points) / 100);

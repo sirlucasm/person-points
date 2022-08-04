@@ -15,7 +15,7 @@ export default {
       updatedAt: timeNow,
       tierName: 'Sem divisão',
       tierNumber: 0,
-      tierPicURL: 'https://firebasestorage.googleapis.com/v0/b/person-points.appspot.com/o/images%2Ftiers%2Fb1_tier.png?alt=media&token=8bcf5594-8525-4290-821f-4b57fabda89f',
+      tierPicURL: 'https://firebasestorage.googleapis.com/v0/b/person-points.appspot.com/o/images%2Ftiers%2Fno_tier.png?alt=media&token=8bcf5594-8525-4290-821f-4b57fabda89f',
       nextTierPoints: 30,
       userId: uid,
       profilePic: params.profilePic,

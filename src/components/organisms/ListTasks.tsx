@@ -17,9 +17,9 @@ const ListTasks = () => {
           totalTasks={tasks.length}
         />
       }
-      horizontal
+      horizontal={true}
       showsHorizontalScrollIndicator={false}
-      snapToOffsets={[...Array(tasks.length).map((_, i) => i * (width * 0.535 - 20) + (i-1)  * 20)]}
+      pagingEnabled
       snapToAlignment='start'
       scrollEventThrottle={16}
       decelerationRate='fast'

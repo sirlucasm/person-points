@@ -27,7 +27,11 @@ export default {
     setTasks: React.Dispatch<React.SetStateAction<any[]>>,
     uid: string
   ) => {
-    const q = query(collection(db, 'tasks'), where('userId', '==', uid), orderBy('updatedAt', 'desc'));
+    const q = query(
+      collection(db, 'tasks'), where('userId', '==', uid),
+      orderBy('updatedAt', 'desc'),
+      where('done', '==', false)
+    );
     return onSnapshot(q, (data) => {
       const tasks: any[] = [];
 
@@ -73,10 +77,23 @@ export default {
     });
   },
 
-  finishSubTask: async (params: any, taskId: string) => {
-    const docRef = doc(db, 'tasks', taskId, 'subTasks', params.subTaskId);
+  finishSubTask: async (
+    params: any,
+    taskId: string,
+    subTaskDoneCount: number,
+    subTaskCount: number
+  ) => {
+    const docSubTaskRef = doc(db, 'tasks', taskId, 'subTasks', params.subTaskId);
+    const docTaskRef = doc(db, 'tasks', taskId);
 
-    await updateDoc(docRef, {
+    if (subTaskDoneCount + 1 === subTaskCount) {
+      await updateDoc(docTaskRef, {
+        done: true,
+        updatedAt: timeNow
+      });
+    }
+
+    await updateDoc(docSubTaskRef, {
       done: params.done,
       updatedAt: timeNow
     });
@@ -92,5 +109,18 @@ export default {
     const docRef = doc(db, 'tasks', taskId, 'subTasks', subTaskId);
 
     await deleteDoc(docRef);
+  },
+
+  listDoneTasks: (
+    setDoneTasks: React.Dispatch<React.SetStateAction<any[]>>,
+  ) => {
+    const docRef = query(collection(db, 'tasks'), where('done', '==', true));
+
+    return onSnapshot(docRef, (result) => {
+      const tasks: any[] = [];
+      if (!result.empty) result.forEach(task => tasks.push(task.data()));
+
+      setDoneTasks(tasks);
+    });
   },
 };

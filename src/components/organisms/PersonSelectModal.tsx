@@ -60,7 +60,7 @@ const PersonSelectModal = ({
           style={{ marginTop: 14, }}
           data={persons}
           keyExtractor={(item) => item.id}
-          horizontal
+          horizontal={true}
           showsHorizontalScrollIndicator={false}
           decelerationRate='normal'
           renderItem={({ item: person, index }) => (

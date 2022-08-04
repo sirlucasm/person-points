@@ -53,14 +53,14 @@ const AddTask = ({ navigation }: any) => {
           textArea
         />
         <ScrollView
-          horizontal
+          horizontal={true}
           showsHorizontalScrollIndicator={false}
           style={{ marginTop: 14 }}
         >
           {
             TaskColors.map((c, index) => (
               <ColorPicker
-                key={index}
+                key={c}
                 color={c}
                 activeOpacity={0.9}
                 onPress={() => setColor(c)}

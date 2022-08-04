@@ -12,6 +12,7 @@ const Content = styled.View`
   padding-horizontal: 28px;
   padding-top: 20px;
   margin-bottom: 20px;
+  width: 100%;
 `;
 
 const Header = () => {

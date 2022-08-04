@@ -37,11 +37,21 @@ const ShowTask = ({ route, navigation }: ShowTaskProps) => {
     modalizeRef.current?.close();
   };
 
-  const handleFinishSubTask = async (subTaskId: string, doneStatus: boolean) => {
-    await TaskService.finishSubTask({
-      done: !doneStatus,
-      subTaskId,
-    }, task?.id || '');
+  const handleFinishSubTask = async (
+    subTaskId: string,
+    doneStatus: boolean,
+    percentTaskFinished: number
+  ) => {
+    await TaskService.finishSubTask(
+      {
+        done: !doneStatus,
+        percentTaskFinished,
+        subTaskId,
+      },
+      task?.id || '',
+      subTasks.filter(s => s.done).length,
+      subTasks.length
+    );
   }
 
   const deleteTask = async () => {
@@ -78,7 +88,7 @@ const ShowTask = ({ route, navigation }: ShowTaskProps) => {
             <AnimatedCircularProgress
               size={22}
               width={3}
-              fill={taskFinishedPercent(subTasks.filter(s => s.done).length, subTasks.length)}
+              fill={taskFinishedPercent(subTasks, subTasks.length)}
               tintColor={task?.color}
               backgroundColor={GRAY_LIGHT}
               rotation={0}
@@ -125,12 +135,23 @@ const ShowTask = ({ route, navigation }: ShowTaskProps) => {
               <CheckBox
                 checked={subTask.done}
                 checkedColor={task?.color}
-                onPress={() => handleFinishSubTask(subTask.id, subTask.done)}
+                activeOpacity={subTask.done ? 1 : 0.7}
+                onPress={() =>
+                  !subTask.done && handleFinishSubTask(
+                    subTask.id,
+                    subTask.done,
+                    taskFinishedPercent(subTasks, subTasks.length)
+                  )
+                }
               />
               <View>
                 <StyledText
                   size={21}
                   color={GRAY_DARK}
+                  style={subTask.done && {
+                    textDecorationStyle: 'solid',
+                    textDecorationLine: 'line-through'
+                  }}
                 >
                   {subTask.name}
                 </StyledText>
